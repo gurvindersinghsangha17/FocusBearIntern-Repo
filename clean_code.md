@@ -1,150 +1,48 @@
 ✅ Tasks
 
-1. Research best practices for writing small, single-purpose functions.
-- Best practices for writing small, single-purpose functions focus on keeping each function responsible for one clear task. A function should ideally do one thing well, making it easier to understand, test, and maintain. Functions should have meaningful names that describe their purpose, accept only the inputs they need, and avoid performing unrelated tasks. Keeping functions short reduces complexity and makes it easier to identify and fix errors. Developers should also avoid duplicating code by creating reusable functions for repeated logic. Small, focused functions improve readability, encourage code reuse, and make future changes safer and easier.
+1. Research best practices for naming variables and functions.
+- Good naming practices use clear and descriptive names that explain the purpose of variables and functions. Avoid vague names like x or data and use meaningful names such as user_age or calculate_total(). Consistent naming styles improve readability, reduce confusion, and make code easier to maintain and debug.
 
-2. Find an example of a long, complex function in an existing codebase (or write your own).
+2. Find examples of unclear variable names in an existing codebase (or write your own).
 
-**Long, Complex Function**
-def register_user(username, email, password):
-    # Validate username
-    if username == "":
-        return "Username required"
+**Poor Variable Names**
+def calculate_total(a, b):
+    x = a * b
+    y = x * 0.1
+    z = x + y
+    return z
 
-    if len(username) < 3:
-        return "Username too short"
+Problems:
+- a and b do not explain what values they represent.
+- x, y, and z make the calculations difficult to understand.
+- Another developer would need to read the entire function to understand the purpose.
 
-    # Validate email
-    if "@" not in email:
-        return "Invalid email"
+3. Refactor the code by renaming variables/functions for better clarity.
 
-    # Validate password
-    if len(password) < 8:
-        return "Password too short"
+**Improved Version**
 
-    # Check if user already exists
-    existing_users = database.get_users()
-    for user in existing_users:
-        if user.email == email:
-            return "User already exists"
+def calculate_total_price(quantity, price):
+    subtotal = quantity * price
+    tax_amount = subtotal * 0.1
+    total_price = subtotal + tax_amount
 
-    # Hash password
-    hashed_password = hash_password(password)
+    return total_price
 
-    # Create user object
-    user = {
-        "username": username,
-        "email": email,
-        "password": hashed_password
-    }
+Improvements:
+- Variable names clearly describe their purpose.
+- The code is easier to read and maintain.
+- Developers can understand the logic without needing extra comments.
 
-    # Save user to database
-    database.save(user)
-
-    # Send welcome email
-    email_service.send(
-        email,
-        "Welcome to our platform!"
-    )
-
-    # Log registration
-    logger.info(
-        f"New user registered: {username}"
-    )
-
-    return "Registration successful"
-
-3. Refactor it into multiple smaller functions with clear responsibilities.
-
-**Smaller Functions with Clear Responsibilities**
-def validate_username(username):
-    if not username:
-        return "Username required"
-
-    if len(username) < 3:
-        return "Username too short"
-
-    return None
-
-
-def validate_email(email):
-    if "@" not in email:
-        return "Invalid email"
-
-    return None
-
-
-def validate_password(password):
-    if len(password) < 8:
-        return "Password too short"
-
-    return None
-
-
-def check_existing_user(email):
-    users = database.get_users()
-
-    for user in users:
-        if user.email == email:
-            return True
-
-    return False
-
-
-def create_user(username, email, password):
-    hashed_password = hash_password(password)
-
-    return {
-        "username": username,
-        "email": email,
-        "password": hashed_password
-    }
-
-
-def save_user(user):
-    database.save(user)
-
-
-def send_welcome_message(email):
-    email_service.send(
-        email,
-        "Welcome to our platform!"
-    )
-
-
-def register_user(username, email, password):
-    # Validate user information before creating an account
-    errors = [
-        validate_username(username),
-        validate_email(email),
-        validate_password(password)
-    ]
-
-    for error in errors:
-        if error:
-            return error
-
-    # Prevent duplicate accounts
-    if check_existing_user(email):
-        return "User already exists"
-
-    # Create and save the new user
-    user = create_user(username, email, password)
-    save_user(user)
-
-    # Notify the user
-    send_welcome_message(email)
-
-    logger.info(f"New user registered: {username}")
-
-    return "Registration successful"
 
 4. Write reflections in clean_code.md:
-- Why is breaking down functions beneficial?
-- Breaking down functions into smaller, single-purpose functions improves code quality by making it easier to read, test, and maintain. Each function has a clear responsibility, which makes it easier for developers to understand what the code does and identify where problems occur. Smaller functions can be reused in different parts of an application and reduce the risk of introducing bugs when making changes. This approach also improves collaboration because other developers can modify or review individual components without needing to understand a large, complex function.
+- What makes a good variable or function name?
+- A good variable or function name should be clear, descriptive, and meaningful. It should explain what the value represents or what the function does without needing extra explanation. Avoid short or confusing names like x or temp, and use names like customer_age or calculate_total_price() instead. Consistent naming makes code easier to read, debug, and maintain.
 
-- How did refactoring improve the structure of the code?
-- Refactoring improved the structure of the code by separating a large, complex function into smaller functions with clear responsibilities. Instead of handling validation, database checks, user creation, saving, and email notifications in one place, each task is now managed independently. This makes the code easier to read, test, and update because changes can be made to individual parts without affecting the entire system. The main register_user() function now clearly shows the overall process, improving maintainability and reducing complexity.
+- What issues can arise from poorly named variables?
+- Poorly named variables can make code difficult to understand, debug, and maintain. Developers may spend extra time figuring out what a variable represents, increasing the chance of mistakes. Unclear names can also lead to confusion when updating or reviewing code, making collaboration harder. Using descriptive names improves readability and reduces errors.
+
+- How did refactoring improve code readability?
+- Refactoring improved code readability by replacing unclear names with descriptive variable and function names that clearly explain their purpose. It made the code easier to understand without needing extra comments or investigation. Clear naming helps developers quickly identify what the code does, making it easier to maintain, debug, and modify in the future.
 
 5. Commit and push your changes to GitHub.
 Done
