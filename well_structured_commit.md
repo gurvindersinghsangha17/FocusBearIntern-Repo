@@ -1,0 +1,1 @@
+Clear, concise, and specific. It uses the imperative mood, identifies the affected component (login), and explains exactly what the commit does. This makes the project history much easier to read and maintain.
