@@ -1,0 +1,1 @@
+Includes far too much information in the subject line. The summary is difficult to read and mixes multiple changes. Most of this belongs in the commit body instead.
