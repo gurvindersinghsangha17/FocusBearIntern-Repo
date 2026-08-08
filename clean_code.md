@@ -386,3 +386,67 @@ def calculate(first_number, second_number, operation):
 
 4. Commit and push your changes to GitHub.
 Done
+
+✅ Tasks
+
+1. Research common refactoring techniques.
+- Extract Method – Move repeated or complex code into a separate function. This makes the code easier to read and reuse.
+
+- Rename Variables or Functions – Replace unclear names with descriptive ones so the purpose of the code is easier to understand.
+
+- Remove Duplicate Code – Combine repeated logic into reusable functions, loops, or classes to follow the DRY principle.
+
+- Simplify Conditionals – Reduce complicated if statements by breaking them into smaller checks or using clearer logic.
+
+- Replace Magic Numbers – Replace unexplained numbers or strings with named constants so their purpose is clear.
+
+- Split Large Functions – Break one long function into several smaller functions, with each function handling one specific task.
+
+- Remove Dead Code – Delete unused variables, functions, imports, or old code that is no longer needed.
+
+- Encapsulate Data – Keep related data and behaviour together, often using classes or functions, instead of letting data be changed from many different places.
+
+2. Find an example of overly complicated code in an existing project (or write your own).
+### Example of Overly Complicated Code
+
+```python id="3w8n0a"
+def check_number(number):
+    if number >= 0:
+        if number != 0:
+            if number % 2 == 0:
+                return "Positive even number"
+            else:
+                return "Positive odd number"
+        else:
+            return "Zero"
+    else:
+        if number % 2 == 0:
+            return "Negative even number"
+        else:
+            return "Negative odd number"
+```
+
+This code is overly complicated because it contains several levels of nested `if` statements. Although the code works, the deep nesting makes the logic harder to follow and increases the amount of code that developers need to read.
+
+It could be refactored by handling special cases first and simplifying the conditions. This would reduce nesting and make the function easier to understand, test, and maintain.
+
+3. Refactor it to make it simpler and more readable.
+
+def check_number(number):
+    if number == 0:
+        return "Zero"
+
+    sign = "Positive" if number > 0 else "Negative"
+    parity = "Even" if number % 2 == 0 else "Odd"
+
+    return f"{sign} {parity} number"
+
+4. Write reflections in clean_code.md:
+- What made the original code complex?
+- The original code was complex because it used multiple levels of nested if and else statements. This made the logic harder to follow and required the reader to keep track of several conditions at the same time. It also repeated similar checks for even and odd numbers. Simplifying the conditions and reducing nesting makes the code easier to read and understand.
+
+- How did refactoring improve it?
+- Refactoring improved the code by removing unnecessary nested if statements and reducing repeated logic. The new version separates the checks for whether the number is positive or negative and whether it is even or odd. This makes the code shorter, clearer, and easier to understand, test, and maintain.
+
+5. Commit and push your changes to GitHub.
+Done
