@@ -23,3 +23,51 @@
 
 5. Commit and push your changes to GitHub.
 Done
+
+✅ Tasks
+
+
+1. Research the following Git commands and test them in your repo:
+
+- git checkout main -- <file> – Restores a specific file to the version stored on the main branch without changing other files in the current branch. This is useful when you want to undo changes to only one file.
+
+- git cherry-pick <commit-hash> – Applies one specific commit from another branch onto the current branch without merging the entire branch. This is useful when you only want selected changes.
+
+- git log – Displays the commit history of the repository, including commit hashes, authors, dates, and commit messages. It helps understand how the project has changed over time.
+
+- git blame <file> – Shows who last changed each line in a file and which commit introduced that change. This can help identify when and why a particular section of code was modified.
+
+2. Experiment with each command in your test repo:
+
+- Modify a file, then restore it using checkout.
+- Commit changes on a branch, then cherry-pick one commit onto main.
+- Use git log to explore the commit history.
+- Use git blame to see past changes in a file.
+Done
+
+3. Write reflections in git_understanding.md:
+
+- What does each command do?
+    - git checkout main -- <file> restores a specific file from the main branch without changing other files in the current branch.
+
+    - git cherry-pick <commit-hash> copies a specific commit from another branch and applies it to the current branch.
+
+    - git log shows the commit history, including commit messages, authors, dates, and commit hashes.
+
+    - git blame <file> shows who last changed each line in a file and which commit that change came from.
+
+- When would you use it in a real project (hint: these are all really important in long running projects with multiple developers)?
+
+    - git checkout main -- <file> – I would use this when I want to restore one file to the version from main without losing changes I have made to other files.
+
+    - git cherry-pick <commit-hash> – I would use this when another developer has made a useful fix or change on a different branch and I only want that specific commit without merging their entire branch.
+
+    - git log – I would use this to review the history of a long-running project, understand what changes were made, and find specific commits when investigating bugs or previous work.
+
+    - git blame <file> – I would use this to find when and by whom a particular line was last changed. In a project with multiple developers, this can help me understand the history and context of the code and identify the relevant person to ask about a change.
+
+- What surprised you while testing these commands?
+- I was surprised by how much information Git keeps about a project’s history. Commands like git log and git blame made it easy to see when changes were made and which commits they came from. I also found it useful that git checkout can restore just one file and git cherry-pick can apply a single commit without merging an entire branch.
+
+4. Commit and push your changes to GitHub.
+Done
