@@ -274,3 +274,54 @@ Improvements:
 
 5. Commit and push your changes to GitHub.
 Done
+
+
+✅ Tasks
+
+1. Research the "Don't Repeat Yourself" (DRY) principle.
+
+- Don't Repeat Yourself (DRY) Principle
+
+- The DRY (Don't Repeat Yourself) principle is a software development practice that aims to avoid repeating the same code or logic multiple times.
+
+- Instead of copying and pasting code, repeated functionality should be placed into functions, classes, or reusable modules and called whenever it is needed.
+
+- For example, instead of repeating:
+print("Hello, John!")
+print("Hello, Sarah!")
+print("Hello, Alex!")
+
+- We could create a reusable function:
+def greet(name):
+    print(f"Hello, {name}!")
+
+greet("John")
+greet("Sarah")
+greet("Alex")
+
+- DRY makes code shorter, easier to maintain, easier to update, and less likely to contain inconsistent bugs. If something needs to change, you can usually change it in one place instead of updating many duplicated sections.
+
+2. Find a section of code in your test repo with unnecessary repetition.
+
+print("User: Alice")
+print("User: Bob")
+print("User: Charlie")
+
+3. Refactor the code to eliminate duplication.
+
+users = ["Alice", "Bob", "Charlie"]
+
+for user in users:
+    print(f"User: {user}")
+
+4. Write reflections in clean_code.md:
+- What were the issues with duplicated code?
+
+- Duplicated code made the program harder to read, maintain, and update. If the same logic appeared in several places, any change had to be repeated everywhere, which increased the chance of mistakes or inconsistent behaviour. Refactoring the repeated code into reusable functions, loops, or variables made the code cleaner, shorter, and easier to manage.
+
+- How did refactoring improve maintainability?
+
+- Refactoring improved maintainability by reducing duplicated code and making the program more organised. Repeated logic was moved into reusable functions or loops, meaning future changes only need to be made in one place. This makes the code easier to understand, update, test, and debug.
+
+5. Commit and push your changes to GitHub.
+Done
