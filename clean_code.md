@@ -450,3 +450,59 @@ def check_number(number):
 
 5. Commit and push your changes to GitHub.
 Done
+
+✅ Tasks
+
+
+1. Research the importance of unit testing in software development.
+- Unit testing is important because it checks that individual parts of a program work correctly. It helps developers find bugs early, prevents new changes from breaking existing features, and makes refactoring safer. Overall, unit testing improves software reliability, quality, and maintainability.
+
+2. Choose a testing framework (e.g., Jest for JavaScript, PyTest for Python).
+- Testing Framework: PyTest
+
+- I chose PyTest as the testing framework because it is simple, widely used, and makes writing and running Python unit tests easy. It provides clear test results and supports features such as fixtures, assertions, and test automation.
+
+3. Write a few unit tests for a function in your test repo.
+
+Code: 
+def check_number(number):
+    if number == 0:
+        return "Zero"
+
+    sign = "Positive" if number > 0 else "Negative"
+    parity = "Even" if number % 2 == 0 else "Odd"
+
+    return f"{sign} {parity} number"
+
+Test:
+from number_checker import check_number
+
+
+def test_positive_even():
+    assert check_number(4) == "Positive Even number"
+
+
+def test_positive_odd():
+    assert check_number(5) == "Positive Odd number"
+
+
+def test_negative_even():
+    assert check_number(-4) == "Negative Even number"
+
+
+def test_negative_odd():
+    assert check_number(-5) == "Negative Odd number"
+
+
+def test_zero():
+    assert check_number(0) == "Zero"
+
+4. Write reflections in clean_code.md:
+- How do unit tests help keep code clean?
+- Unit tests help keep code clean by making sure each part of the program works correctly. They allow developers to refactor and improve code with confidence because tests can quickly detect if a change breaks existing functionality. They also encourage developers to write smaller, simpler, and more organised functions.
+
+- What issues did you find while testing?
+- While testing, I found that small mistakes in expected outputs, function logic, or input handling could cause tests to fail. The tests helped identify these problems quickly and showed which parts of the function needed to be corrected or improved.
+
+5. Commit and push your changes to GitHub.
+Done
