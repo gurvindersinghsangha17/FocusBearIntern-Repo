@@ -325,3 +325,64 @@ for user in users:
 
 5. Commit and push your changes to GitHub.
 Done
+
+✅ Tasks
+
+
+1. Research and summarize the following clean code principles in clean_code.md:
+- Simplicity – Keep code as simple as possible.
+- Code should be kept as simple as possible. Avoid unnecessary complexity, overly complicated logic, or extra features that are not needed. Simple code is easier to understand, test, and debug.
+
+- Readability – Code should be easy to understand.
+- Code should be easy for other developers to read and understand. This includes using clear variable and function names, good formatting, and helpful comments where necessary.
+
+- Maintainability – Future developers (including you!) should be able to work with the code easily.
+- Code should be written so it can be easily updated, fixed, or extended in the future. Breaking code into reusable functions or modules can make changes easier and reduce the chance of introducing bugs.
+
+- Consistency – Follow style guides and project conventions.
+- Code should follow the same style and conventions throughout the project. Consistent naming, formatting, and structure make the codebase easier to navigate and understand.
+
+- Efficiency – Write performant, optimized code without premature over-engineering.
+- Code should perform tasks effectively without wasting unnecessary time or resources. However, developers should avoid premature optimization and focus first on writing clear, correct code before improving performance where needed.
+
+
+2. Find an example of messy code online (or write one yourself) and describe why it's difficult to read.
+
+### Example of Messy Code
+
+```python
+def calc(x,y,z):
+    if z=="a": return x+y
+    elif z=="s": return x-y
+    elif z=="m": return x*y
+    elif z=="d":
+        if y!=0:return x/y
+        else:return "err"
+```
+
+This code is difficult to read because it uses unclear variable names such as `x`, `y`, and `z`, as well as shortened values like `"a"`, `"s"`, and `"m"`. The formatting is inconsistent, and multiple statements are placed on the same line. The function name `calc` also does not clearly describe its purpose.
+
+It could be improved by using descriptive names such as `first_number`, `second_number`, and `operation`, along with proper indentation and clearer operation names. This would make the code easier to understand, debug, and maintain.
+
+3. Rewrite the code in a cleaner, more structured way.
+
+def calculate(first_number, second_number, operation):
+    if operation == "add":
+        return first_number + second_number
+
+    elif operation == "subtract":
+        return first_number - second_number
+
+    elif operation == "multiply":
+        return first_number * second_number
+
+    elif operation == "divide":
+        if second_number == 0:
+            return "Cannot divide by zero"
+        return first_number / second_number
+
+    else:
+        return "Invalid operation"
+
+4. Commit and push your changes to GitHub.
+Done
