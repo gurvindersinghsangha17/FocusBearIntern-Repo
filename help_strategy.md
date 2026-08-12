@@ -1,4 +1,4 @@
-✅ Tasks
+Tasks
 
 1. Research best practices for troubleshooting coding problems. Spend 30 minutes talking with Chat GPT to understand different perspectives on using AI in coding. When is it helpful and when is it not?
 
