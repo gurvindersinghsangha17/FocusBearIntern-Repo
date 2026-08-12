@@ -71,3 +71,46 @@ Done
 
 4. Commit and push your changes to GitHub.
 Done
+
+Tasks
+
+
+1. Research git bisect and how it helps in debugging.
+- git bisect is a Git debugging tool used to find the specific commit that introduced a bug. It uses a binary search, meaning it repeatedly checks commits in the middle of a known working (good) commit and a broken (bad) commit until it finds where the problem started.
+
+- For Example: 
+git bisect start
+git bisect bad
+git bisect good <good-commit>
+
+- Git then selects commits for you to test. After each test, you mark the commit as:
+git bisect good OR git bisect bad
+
+- Once Git identifies the first bad commit, you can inspect the changes that caused the problem. When finished, you use:
+git bisect reset
+
+- This is useful because instead of manually checking every commit, git bisect quickly narrows down the project history and helps developers find when a bug was introduced.
+
+2. Create a test scenario:
+- Make a series of commits in your test repo.
+- Introduce a bug in one of the commits.
+- Use git bisect to track down the commit that introduced the issue.
+
+Done
+
+3. Experiment using your Git desktop client (or CLI if preferred).
+
+Done
+
+4. Write reflections in git_understanding.md:
+- What does git bisect do?
+- git bisect is a Git tool that helps find the commit that introduced a bug. It uses a binary search between a known good commit and a bad commit, allowing Git to narrow down where the problem was introduced.
+
+- When would you use it in a real-world debugging situation?
+- I would use git bisect when a feature previously worked but is now broken and I am not sure which commit caused the problem. It would be especially useful when there are many commits between the working and broken versions.
+
+- How does it compare to manually reviewing commits?
+- git bisect is faster and more efficient than manually checking every commit. Instead of reviewing each commit one by one, it repeatedly narrows down the possible commits until the first bad commit is found. This can save a lot of time when working with a large commit history.
+
+Commit and push your changes to GitHub.
+Done
