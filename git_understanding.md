@@ -114,3 +114,39 @@ Done
 
 Commit and push your changes to GitHub.
 Done
+
+
+Tasks
+
+1. Research what causes merge conflicts in Git.
+- A merge conflict happens when Git cannot automatically decide how to combine changes from different branches.
+- Common causes include:
+- Two developers changing the same lines of the same file differently.
+- One person editing a file while another person deletes or renames it.
+- Different branches making conflicting changes to the same code.
+- Branches being worked on separately for a long time before being merged.
+- When a merge conflict happens, Git pauses the merge and asks the developer to manually choose which changes should be kept. Resolving conflicts carefully helps prevent important code from being accidentally removed or overwritten.
+
+2. Create a merge conflict in your test repo by:
+- Creating a branch and editing a file.
+- Switching back to main, making a conflicting edit in the same file, and committing it.
+- Merging the branch back into main.
+
+Done
+
+3. Use your Git desktop client to resolve the conflict.
+
+Done
+
+4. Write about your experience in git_understanding.md:
+- What caused the conflict?
+- The conflict happened because changes were made to the repository in different places, and the local main branch and the remote GitHub main branch had different commits. Git could not simply push the local changes because the remote repository contained changes that were not available locally.
+
+- How did you resolve it?
+- I first checked the repository using git status and git log to understand the differences between the branches. I saved my uncommitted files using git stash and then used git rebase origin/main to apply my local commits on top of the remote changes. This helped bring the histories back together without losing my work.
+
+- What did you learn?
+- I learned that it is important to keep local and remote branches regularly synchronised, especially when changes can be made from different locations. I also learned how git status, git log, git stash, and git rebase can help safely manage conflicting Git histories and protect work while resolving problems.
+
+5. Commit and push your changes to GitHub.
+Done
