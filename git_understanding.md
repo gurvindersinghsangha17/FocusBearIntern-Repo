@@ -150,3 +150,68 @@ Done
 
 5. Commit and push your changes to GitHub.
 Done
+
+Tasks
+
+1. Create a new branch in your Git desktop client (e.g., GitHub Desktop, VS Code, SourceTree).
+Done
+
+2. Make a small change in your repo and commit it to the new branch.
+Done
+
+3. Switch back to main and check that your changes are not there.
+Done
+
+4. Reflect on why teams use branches instead of pushing directly to main in git_understanding.md:
+- Why is pushing directly to main problematic?
+- Pushing directly to main can be risky because changes are added to the main version of the project without being reviewed or properly tested first. If the code contains bugs or errors, it could affect everyone working on the project.
+
+- How do branches help with reviewing code?
+- Branches allow developers to work on changes separately from the main codebase. Once the work is ready, a pull request can be created so other team members can review the changes, suggest improvements, and check automated tests before merging them into main.
+
+- What happens if two people edit the same file on different branches?
+- Both developers can make changes independently on their own branches. If they change different parts of the file, Git can usually merge the changes automatically. However, if they change the same lines differently, a merge conflict may occur. The conflict needs to be reviewed and resolved manually before the branches can be merged.
+
+5. Commit and push your changes to GitHub.
+Done
+
+Tasks
+
+1. Research the difference between staging and committing.
+- Staging means selecting the changes you want to include in your next commit. You normally do this with git add. The staging area acts like a preparation area where you can choose exactly what should be saved next.
+- For example:
+git add git_understanding.md
+- Committing means taking the changes you staged and permanently recording that snapshot in your local Git history with a message describing the change.
+
+- For example:
+git commit -m "Add Git understanding reflections"
+
+- So, simply:
+Staging = choosing what to save next.
+Committing = saving those staged changes into Git's history.
+- This is useful because you might change several files but only want some of them included in a particular commit.
+
+2. Experiment with adding and committing files in your repo using either:
+- The terminal (git add / git commit)
+- A Git desktop client (e.g., GitHub Desktop, VS Code Git integration).
+Done
+
+3. Modify a file and try the following:
+- Stage it but don’t commit (git add <file> or equivalent in your client).
+- Check the status (git status).
+- Unstage the file (git reset HEAD <file> or equivalent).
+- Commit the file and observe the difference.
+Done
+
+4. Write a summary in git_understanding.md:
+- What is the difference between staging and committing?
+- Staging means selecting which changes I want to include in my next commit using git add. Committing means saving those staged changes into the Git history using git commit.
+
+- Why does Git separate these two steps?
+- Git separates these steps so developers have more control over what goes into each commit. I can make changes to several files but only stage the files that belong to a specific task. This helps keep commits organised and easier to understand.
+
+- When would you want to stage changes without committing?
+- I might stage changes without committing when I am still working on a task and want to prepare specific files for the next commit. It is also useful for reviewing what will be included in the commit before permanently saving it to the Git history.
+
+5. Commit and push your changes to GitHub.
+Done
