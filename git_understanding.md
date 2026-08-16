@@ -1,217 +1,89 @@
-✅ Tasks
+# Git Bisect
 
-1. Research best practices for writing commit messages.
-- A good commit message should clearly describe what changed and why. Each commit should focus on one logical change, begin with a short, specific summary written in the imperative mood (e.g. Fix login bug or Add user report), and include a body when needed to explain the reason for the change, implementation decisions, or important side effects. Avoid vague messages like Updated code or Fixed stuff, and reference related issues if applicable. Many teams also follow the Conventional Commits format (e.g. feat:, fix:, docs:) to keep commit histories consistent and support automated tools. Overall, clear, concise, and descriptive commit messages make code easier to review, maintain, and debug.
+## Research
 
-2. Explore commit histories in an open-source GitHub project (e.g., React, Node.js) and analyze good vs. bad commit messages.
-- I explored commit histories from projects such as React and Node.js. Good commit messages are clear, specific, and explain what changed, such as fix(timer): prevent sessions ending early. Poor commit messages are vague, such as fixed stuff or update, because they do not explain the change. Clear messages make the project history easier to understand, review, and debug.
+`git bisect` is a Git debugging tool used to find the specific commit that
+introduced a bug. It uses binary search between a known working commit and a
+known broken commit.
 
-3. Make three commits in your repo with different commit message styles:
-- A vague commit message (e.g., "fixed stuff").
-- An overly detailed commit message.
-- A well-structured commit message.
+Instead of manually reviewing every commit, Git checks commits in the middle of
+the selected range. After testing each commit, I mark it as either:
 
-4. Write reflections in git_understanding.md:
-- What makes a good commit message?
-- A good commit message is clear, specific, and easy to understand. It should briefly explain what was changed and, when necessary, why the change was made. Good commit messages usually use the imperative mood, such as Fix login error or Add activity report, and avoid vague wording like Updated files or Fixed stuff.
+`git bisect good`
 
-- How does a clear commit message help in team collaboration?
-- A clear commit message helps team members quickly understand the purpose of a change without needing to examine every line of code. It makes code reviews easier, improves communication, and helps developers follow the progress of a project. It is also useful when someone needs to find when and why a particular feature or bug fix was introduced.
+or:
 
-- How can poor commit messages cause issues later?
-- Poor commit messages can make the project history confusing and difficult to search. Messages such as Changes, Update, or Fix do not explain what was modified, which can waste time when debugging or reviewing previous work. They can also make it harder to identify the cause of a problem, safely revert a change, or understand decisions made by other developers.
+`git bisect bad`
 
-5. Commit and push your changes to GitHub.
-Done
+Git continues narrowing down the history until it identifies the first bad
+commit.
 
-✅ Tasks
+When finished, I use:
 
+`git bisect reset`
 
-1. Research the following Git commands and test them in your repo:
+to return to my original branch.
 
-- git checkout main -- <file> – Restores a specific file to the version stored on the main branch without changing other files in the current branch. This is useful when you want to undo changes to only one file.
+## Test Scenario
 
-- git cherry-pick <commit-hash> – Applies one specific commit from another branch onto the current branch without merging the entire branch. This is useful when you only want selected changes.
+I created four commits for the test:
 
-- git log – Displays the commit history of the repository, including commit hashes, authors, dates, and commit messages. It helps understand how the project has changed over time.
+1. `0f9179b` - Added the first working version.
+2. `74bc80e` - Updated the file while it was still working.
+3. `d4e0ce9` - Introduced the bug.
+4. `0503a05` - Made another change while the bug was still present.
 
-- git blame <file> – Shows who last changed each line in a file and which commit introduced that change. This can help identify when and why a particular section of code was modified.
+I started the bisect process with:
 
-2. Experiment with each command in your test repo:
+`git bisect start`
 
-- Modify a file, then restore it using checkout.
-- Commit changes on a branch, then cherry-pick one commit onto main.
-- Use git log to explore the commit history.
-- Use git blame to see past changes in a file.
-Done
+I marked the latest broken commit as bad using:
 
-3. Write reflections in git_understanding.md:
+`git bisect bad`
 
-- What does each command do?
-    - git checkout main -- <file> restores a specific file from the main branch without changing other files in the current branch.
+I then marked the last known working commit as good using:
 
-    - git cherry-pick <commit-hash> copies a specific commit from another branch and applies it to the current branch.
+`git bisect good 74bc80e`
 
-    - git log shows the commit history, including commit messages, authors, dates, and commit hashes.
+Git checked the commit in between. I tested the file and found:
 
-    - git blame <file> shows who last changed each line in a file and which commit that change came from.
+`BUG - broken version`
 
-- When would you use it in a real project (hint: these are all really important in long running projects with multiple developers)?
+I then marked that commit as bad using:
 
-    - git checkout main -- <file> – I would use this when I want to restore one file to the version from main without losing changes I have made to other files.
+`git bisect bad`
 
-    - git cherry-pick <commit-hash> – I would use this when another developer has made a useful fix or change on a different branch and I only want that specific commit without merging their entire branch.
+Git identified the following as the first bad commit:
 
-    - git log – I would use this to review the history of a long-running project, understand what changes were made, and find specific commits when investigating bugs or previous work.
+`d4e0ce9 - test: introduce bisect bug`
 
-    - git blame <file> – I would use this to find when and by whom a particular line was last changed. In a project with multiple developers, this can help me understand the history and context of the code and identify the relevant person to ask about a change.
+This confirmed that commit `d4e0ce9` introduced the issue.
 
-- What surprised you while testing these commands?
-- I was surprised by how much information Git keeps about a project’s history. Commands like git log and git blame made it easy to see when changes were made and which commits they came from. I also found it useful that git checkout can restore just one file and git cherry-pick can apply a single commit without merging an entire branch.
+After the test, I used:
 
-4. Commit and push your changes to GitHub.
-Done
+`git bisect reset`
 
-Tasks
+to return to my original branch.
 
+## Reflection
 
-1. Research git bisect and how it helps in debugging.
-- git bisect is a Git debugging tool used to find the specific commit that introduced a bug. It uses a binary search, meaning it repeatedly checks commits in the middle of a known working (good) commit and a broken (bad) commit until it finds where the problem started.
+### What does `git bisect` do?
 
-- For Example: 
-git bisect start
-git bisect bad
-git bisect good <good-commit>
+`git bisect` helps find the commit that introduced a bug. It uses binary search
+between a known good commit and a known bad commit, allowing Git to quickly
+narrow down where the problem started.
 
-- Git then selects commits for you to test. After each test, you mark the commit as:
-git bisect good OR git bisect bad
+### When would you use it in a real-world debugging situation?
 
-- Once Git identifies the first bad commit, you can inspect the changes that caused the problem. When finished, you use:
-git bisect reset
+I would use `git bisect` when a feature previously worked but is now broken and
+I do not know which commit caused the problem. It is especially useful when
+there are many commits between the working and broken versions.
 
-- This is useful because instead of manually checking every commit, git bisect quickly narrows down the project history and helps developers find when a bug was introduced.
+### How does it compare to manually reviewing commits?
 
-2. Create a test scenario:
-- Make a series of commits in your test repo.
-- Introduce a bug in one of the commits.
-- Use git bisect to track down the commit that introduced the issue.
+`git bisect` is faster and more efficient than manually checking every commit.
+Instead of reviewing commits one by one, it repeatedly reduces the number of
+possible commits until the first bad commit is found.
 
-Done
-
-3. Experiment using your Git desktop client (or CLI if preferred).
-
-Done
-
-4. Write reflections in git_understanding.md:
-- What does git bisect do?
-- git bisect is a Git tool that helps find the commit that introduced a bug. It uses a binary search between a known good commit and a bad commit, allowing Git to narrow down where the problem was introduced.
-
-- When would you use it in a real-world debugging situation?
-- I would use git bisect when a feature previously worked but is now broken and I am not sure which commit caused the problem. It would be especially useful when there are many commits between the working and broken versions.
-
-- How does it compare to manually reviewing commits?
-- git bisect is faster and more efficient than manually checking every commit. Instead of reviewing each commit one by one, it repeatedly narrows down the possible commits until the first bad commit is found. This can save a lot of time when working with a large commit history.
-
-Commit and push your changes to GitHub.
-Done
-
-
-Tasks
-
-1. Research what causes merge conflicts in Git.
-- A merge conflict happens when Git cannot automatically decide how to combine changes from different branches.
-- Common causes include:
-- Two developers changing the same lines of the same file differently.
-- One person editing a file while another person deletes or renames it.
-- Different branches making conflicting changes to the same code.
-- Branches being worked on separately for a long time before being merged.
-- When a merge conflict happens, Git pauses the merge and asks the developer to manually choose which changes should be kept. Resolving conflicts carefully helps prevent important code from being accidentally removed or overwritten.
-
-2. Create a merge conflict in your test repo by:
-- Creating a branch and editing a file.
-- Switching back to main, making a conflicting edit in the same file, and committing it.
-- Merging the branch back into main.
-
-Done
-
-3. Use your Git desktop client to resolve the conflict.
-
-Done
-
-4. Write about your experience in git_understanding.md:
-- What caused the conflict?
-- The conflict happened because changes were made to the repository in different places, and the local main branch and the remote GitHub main branch had different commits. Git could not simply push the local changes because the remote repository contained changes that were not available locally.
-
-- How did you resolve it?
-- I first checked the repository using git status and git log to understand the differences between the branches. I saved my uncommitted files using git stash and then used git rebase origin/main to apply my local commits on top of the remote changes. This helped bring the histories back together without losing my work.
-
-- What did you learn?
-- I learned that it is important to keep local and remote branches regularly synchronised, especially when changes can be made from different locations. I also learned how git status, git log, git stash, and git rebase can help safely manage conflicting Git histories and protect work while resolving problems.
-
-5. Commit and push your changes to GitHub.
-Done
-
-Tasks
-
-1. Create a new branch in your Git desktop client (e.g., GitHub Desktop, VS Code, SourceTree).
-Done
-
-2. Make a small change in your repo and commit it to the new branch.
-Done
-
-3. Switch back to main and check that your changes are not there.
-Done
-
-4. Reflect on why teams use branches instead of pushing directly to main in git_understanding.md:
-- Why is pushing directly to main problematic?
-- Pushing directly to main can be risky because changes are added to the main version of the project without being reviewed or properly tested first. If the code contains bugs or errors, it could affect everyone working on the project.
-
-- How do branches help with reviewing code?
-- Branches allow developers to work on changes separately from the main codebase. Once the work is ready, a pull request can be created so other team members can review the changes, suggest improvements, and check automated tests before merging them into main.
-
-- What happens if two people edit the same file on different branches?
-- Both developers can make changes independently on their own branches. If they change different parts of the file, Git can usually merge the changes automatically. However, if they change the same lines differently, a merge conflict may occur. The conflict needs to be reviewed and resolved manually before the branches can be merged.
-
-5. Commit and push your changes to GitHub.
-Done
-
-Tasks
-
-1. Research the difference between staging and committing.
-- Staging means selecting the changes you want to include in your next commit. You normally do this with git add. The staging area acts like a preparation area where you can choose exactly what should be saved next.
-- For example:
-git add git_understanding.md
-- Committing means taking the changes you staged and permanently recording that snapshot in your local Git history with a message describing the change.
-
-- For example:
-git commit -m "Add Git understanding reflections"
-
-- So, simply:
-Staging = choosing what to save next.
-Committing = saving those staged changes into Git's history.
-- This is useful because you might change several files but only want some of them included in a particular commit.
-
-2. Experiment with adding and committing files in your repo using either:
-- The terminal (git add / git commit)
-- A Git desktop client (e.g., GitHub Desktop, VS Code Git integration).
-Done
-
-3. Modify a file and try the following:
-- Stage it but don’t commit (git add <file> or equivalent in your client).
-- Check the status (git status).
-- Unstage the file (git reset HEAD <file> or equivalent).
-- Commit the file and observe the difference.
-Done
-
-4. Write a summary in git_understanding.md:
-- What is the difference between staging and committing?
-- Staging means selecting which changes I want to include in my next commit using git add. Committing means saving those staged changes into the Git history using git commit.
-
-- Why does Git separate these two steps?
-- Git separates these steps so developers have more control over what goes into each commit. I can make changes to several files but only stage the files that belong to a specific task. This helps keep commits organised and easier to understand.
-
-- When would you want to stage changes without committing?
-- I might stage changes without committing when I am still working on a task and want to prepare specific files for the next commit. It is also useful for reviewing what will be included in the commit before permanently saving it to the Git history.
-
-5. Commit and push your changes to GitHub.
-Done
+In my test scenario, it helped me identify the exact commit that introduced the
+bug without manually reviewing the complete commit history.
