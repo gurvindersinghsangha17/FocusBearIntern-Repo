@@ -1,89 +1,118 @@
-# Git Bisect
+# Git Understanding - Pull Requests
 
-## Research
+## Research: Pull Requests
 
-`git bisect` is a Git debugging tool used to find the specific commit that
-introduced a bug. It uses binary search between a known working commit and a
-known broken commit.
+A Pull Request (PR) is a way of proposing changes to a codebase before
+those changes are merged into another branch, such as the main branch.
 
-Instead of manually reviewing every commit, Git checks commits in the middle of
-the selected range. After testing each commit, I mark it as either:
+A Pull Request (PR) is a way of proposing changes to a codebase before
+those changes are merged into another branch, such as the main branch.
+A developer normally creates a separate branch, makes and commits their
+changes, pushes the branch to GitHub, and then opens a Pull Request.
 
-`git bisect good`
+The Pull Request allows other developers to review the proposed changes
+before they become part of the main codebase. Reviewers can look at the
+files and commits, leave comments, suggest improvements, request changes,
+or approve the Pull Request.
 
-or:
+Pull Requests are useful because they support collaboration and code
+review. They can help teams identify bugs, improve code quality, discuss
+different approaches, and make sure changes meet the project's standards
+before they are merged.
 
-`git bisect bad`
+A typical Pull Request workflow is:
 
-Git continues narrowing down the history until it identifies the first bad
-commit.
+1. Create a new branch from the appropriate base branch.
+2. Make the required changes on the new branch.
+3. Commit the changes with a meaningful commit message.
+4. Push the branch to the remote repository.
+5. Open a Pull Request on GitHub.
+6. Describe what was changed and why.
+7. Ask another developer to review the changes.
+8. Respond to feedback and make additional changes if required.
+9. After approval, merge the Pull Request.
+10. Delete the feature branch when it is no longer needed.
 
-When finished, I use:
+From this research, I learned that a Pull Request is not only a way to
+merge code. It also creates a place where developers can review,
+discuss, and improve changes before they become part of the main
+codebase.
 
-`git bisect reset`
+## Open-Source Pull Request Review
 
-to return to my original branch.
+I reviewed React Pull Request #37301, titled
+"Fix: Add proper error handling to task scripts (eslint, linc, flow)."
 
-## Test Scenario
+The purpose of the Pull Request was to improve error handling in several
+React build and CI task scripts. The author added error handling so that
+unexpected asynchronous failures are logged properly and the process exits
+with a non-zero status instead of causing unhandled promise rejections.
 
-I created four commits for the test:
+The Pull Request changed three files:
 
-1. `0f9179b` - Added the first working version.
-2. `74bc80e` - Updated the file while it was still working.
-3. `d4e0ce9` - Introduced the bug.
-4. `0503a05` - Made another change while the bug was still present.
+- `scripts/tasks/eslint.js`
+- `scripts/tasks/linc.js`
+- `scripts/tasks/flow.js`
 
-I started the bisect process with:
+I observed that GitHub Copilot automatically reviewed all three changed files.
+It provided an overview of the changes but did not identify any code issues or
+request any changes.
 
-`git bisect start`
+I also noticed that React has additional contribution requirements. The author
+was initially asked to sign Meta's Contributor License Agreement before the
+Pull Request could continue through the review process. After the agreement
+was signed, the PR received the `CLA Signed` label and the CLA check passed.
 
-I marked the latest broken commit as bad using:
+The Pull Request also showed several automated workflow checks. Some checks
+passed, while other workflows were waiting for approval from a maintainer.
 
-`git bisect bad`
+At the time I reviewed the PR, it was still open and required at least one
+approving review from someone with write access before it could be merged.
 
-I then marked the last known working commit as good using:
+This showed me that Pull Requests in large open-source projects involve more
+than just reviewing code. They can also include automated checks, contribution
+agreements, repository rules, and approval requirements before changes are
+allowed into the main branch.
 
-`git bisect good 74bc80e`
+## Pull Request Reflection
 
-Git checked the commit in between. I tested the file and found:
+### Why are PRs important in a team workflow?
 
-`BUG - broken version`
+Pull Requests are important in a team workflow because they allow changes
+to be reviewed before they are merged into the main codebase. Other team
+members can check the code, identify possible problems, suggest improvements,
+and discuss different approaches.
 
-I then marked that commit as bad using:
+PRs also create a record of the changes and discussions that took place. This
+can make collaboration easier and help maintain the quality of the project.
 
-`git bisect bad`
+### What makes a well-structured PR?
 
-Git identified the following as the first bad commit:
+A well-structured Pull Request should have a clear and meaningful title and
+description. The description should explain what was changed and why the
+change was needed.
 
-`d4e0ce9 - test: introduce bisect bug`
+The PR should focus on a specific task instead of containing many unrelated
+changes. It should also be easy for reviewers to understand the changes,
+review the affected files, and provide feedback. Relevant tests and automated
+checks should also pass where applicable.
 
-This confirmed that commit `d4e0ce9` introduced the issue.
+### What did you learn from reviewing an open-source PR?
 
-After the test, I used:
+From reviewing React Pull Request #37301, I learned that Pull Requests in
+large open-source projects can go through several checks before they are
+merged.
 
-`git bisect reset`
+In the PR I reviewed, GitHub Copilot automatically reviewed the three changed
+files and did not request any changes. The contributor also needed to sign
+Meta's Contributor License Agreement before the contribution could continue
+through the review process.
 
-to return to my original branch.
+I also saw that automated workflow checks were used and that the PR still
+required an approving review from someone with write access before it could
+be merged.
 
-## Reflection
-
-### What does `git bisect` do?
-
-`git bisect` helps find the commit that introduced a bug. It uses binary search
-between a known good commit and a known bad commit, allowing Git to quickly
-narrow down where the problem started.
-
-### When would you use it in a real-world debugging situation?
-
-I would use `git bisect` when a feature previously worked but is now broken and
-I do not know which commit caused the problem. It is especially useful when
-there are many commits between the working and broken versions.
-
-### How does it compare to manually reviewing commits?
-
-`git bisect` is faster and more efficient than manually checking every commit.
-Instead of reviewing commits one by one, it repeatedly reduces the number of
-possible commits until the first bad commit is found.
-
-In my test scenario, it helped me identify the exact commit that introduced the
-bug without manually reviewing the complete commit history.
+This taught me that a Pull Request is not only about submitting code. It also
+provides a process for code review, automated testing, contribution
+requirements, discussion, and approval before changes become part of the
+main project.
