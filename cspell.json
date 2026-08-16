@@ -1,0 +1,19 @@
+{
+  "version": "0.2",
+  "language": "en",
+  "words": [
+    "CI",
+    "CD",
+    "GitHub",
+    "GitLab",
+    "Markdown",
+    "markdownlint",
+    "CSpell",
+    "ESLint",
+    "Prettier",
+    "Husky"
+  ],
+  "ignorePaths": [
+    "node_modules/**"
+  ]
+}
